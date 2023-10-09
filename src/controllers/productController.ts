@@ -21,8 +21,6 @@ class ProductController {
    *   Product:
    *     type: object
    *     properties:
-   *       id:
-   *         type: string
    *       shop_id:
    *         type: string
    *       name:
