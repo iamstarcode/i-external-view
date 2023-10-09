@@ -21,6 +21,8 @@ class ProductController {
    *   Product:
    *     type: object
    *     properties:
+   *       id:
+   *         type: string
    *       shop_id:
    *         type: string
    *       name:
@@ -145,6 +147,8 @@ class ProductController {
     const { body } = req;
 
     await createProductSchema.parseAsync(body);
+
+    console.log(body);
 
     const product = await prisma.product.create({ data: body });
 
