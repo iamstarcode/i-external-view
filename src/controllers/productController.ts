@@ -128,13 +128,13 @@ class ProductController {
    *   post:
    *     summary: Add a new product
    *     tags: [products]
-   *     parameters:
-   *       - name: product
-   *         in: body
-   *         description: New product object to add
-   *         required: true
-   *         schema:
-   *           $ref: '#/definitions/Product'
+   *     requestBody:
+   *       description: New product object to add
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/definitions/Product'
    *     responses:
    *       201:
    *         description: Product added successfully
