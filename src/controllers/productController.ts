@@ -8,60 +8,62 @@ import prisma from '../models/db';
 import AppError from '../utils/appError';
 
 class ProductController {
+  /**
+   * @swagger
+   * tags:
+   *   name: products
+   *   description: API endpoints for managing products
+   */
 
   /**
-  * @swagger
-  * tags:
-  *   name: products
-  *   description: API endpoints for managing products
-  */
-
-  /**
- * @swagger
- * definitions:
- *   Product:
- *     type: object
- *     properties:
- *       id:
- *         type: string
- *       user_id:
- *         type: string
- *       name:
- *         type: string
- *       description:
- *         type: string
- *       quantity:
- *         type: integer
- *       category:
- *         type: integer
- *       image_id:
- *         type: integer
- *       price:
- *         type: number
- *       discount_price:
- *         type: number
- *       tax:
- *         type: number
- *       admin_status:
- *         type: string
- *       rating_id:
- *         type: integer
- *       currency:
- *         type: string
- *     required:
- *       - user_id
- *       - name
- *       - description
- *       - quantity
- *       - category
- *       - image_id
- *       - price
- *       - discount_price
- *       - tax
- *       - admin_status
- *       - rating_id
- *       - currency
- */
+   * @swagger
+   * definitions:
+   *   Product:
+   *     type: object
+   *     properties:
+   *       id:
+   *         type: string
+   *       shop_id:
+   *         type: string
+   *       name:
+   *         type: string
+   *       description:
+   *         type: string
+   *       quantity:
+   *         type: integer
+   *       category_id:
+   *         type: integer
+   *       price:
+   *         type: number
+   *       discount_price:
+   *         type: number
+   *       tax:
+   *         type: number
+   *       admin_status:
+   *         type: string
+   *       is_deleted:
+   *         type: string
+   *       rating_id:
+   *         type: integer
+   *       is_published:
+   *         type: boolean
+   *       currency:
+   *         type: string
+   *     required:
+   *       - shop_id
+   *       - name
+   *       - description
+   *       - quantity
+   *       - category_id
+   *       - price
+   *       - discount_price
+   *       - tax
+   *       - admin_status
+   *       - is_deleted
+   *       - rating_id
+   *       - is_published
+   *       - currency
+   */
 
   /**
    * @swagger
@@ -90,25 +92,25 @@ class ProductController {
   });
 
   /**
-  * @swagger
-  * /products/{id}:
-  *   get:
-  *     summary: Get a single product by ID
-  *     tags: [products]
-  *     parameters:
-  *       - name: id
-  *         in: path
-  *         description: ID of the product to retrieve
-  *         required: true
-  *         type: string
-  *     responses:
-  *       200:
-  *         description: Successfully retrieved the product
-  *         schema:
-  *           $ref: '#/definitions/Product'
-  *       404:
-  *         description: Product not found
-  */
+   * @swagger
+   * /products/{id}:
+   *   get:
+   *     summary: Get a single product by ID
+   *     tags: [products]
+   *     parameters:
+   *       - name: id
+   *         in: path
+   *         description: ID of the product to retrieve
+   *         required: true
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: Successfully retrieved the product
+   *         schema:
+   *           $ref: '#/definitions/Product'
+   *       404:
+   *         description: Product not found
+   */
   getSingleProduct: RequestHandler = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const product = await prisma.product.findUnique({ where: { id } });
@@ -121,26 +123,26 @@ class ProductController {
   });
 
   /**
-  * @swagger
-  * /products:
-  *   post:
-  *     summary: Add a new product
-  *     tags: [products]
-  *     parameters:
-  *       - name: product
-  *         in: body
-  *         description: New product object to add
-  *         required: true
-  *         schema:
-  *           $ref: '#/definitions/Product'
-  *     responses:
-  *       201:
-  *         description: Product added successfully
-  *         schema:
-  *           $ref: '#/definitions/Product'
-  *       400:
-  *         description: Failed to add product
-  */
+   * @swagger
+   * /products:
+   *   post:
+   *     summary: Add a new product
+   *     tags: [products]
+   *     parameters:
+   *       - name: product
+   *         in: body
+   *         description: New product object to add
+   *         required: true
+   *         schema:
+   *           $ref: '#/definitions/Product'
+   *     responses:
+   *       201:
+   *         description: Product added successfully
+   *         schema:
+   *           $ref: '#/definitions/Product'
+   *       400:
+   *         description: Failed to add product
+   */
   addProducts: RequestHandler = catchAsync(async (req, res, next) => {
     const { body } = req;
 
@@ -200,23 +202,23 @@ class ProductController {
     res.status(201).json({ status: 'success', product });
   });
   /**
-    * @swagger
-    * /products/{id}:
-    *   delete:
-    *     summary: Delete a product by ID
-    *     tags: [products]
-    *     parameters:
-    *       - name: id
-    *         in: path
-    *         description: ID of the product to delete
-    *         required: true
-    *         type: string
-    *     responses:
-    *       204:
-    *         description: Product deleted successfully
-    *       404:
-    *         description: Product not found
-    */
+   * @swagger
+   * /products/{id}:
+   *   delete:
+   *     summary: Delete a product by ID
+   *     tags: [products]
+   *     parameters:
+   *       - name: id
+   *         in: path
+   *         description: ID of the product to delete
+   *         required: true
+   *         type: string
+   *     responses:
+   *       204:
+   *         description: Product deleted successfully
+   *       404:
+   *         description: Product not found
+   */
   deleteProduct: RequestHandler = catchAsync(async (req, res, next) => {
     const { id } = req.params;
 
