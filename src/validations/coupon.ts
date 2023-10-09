@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const createCouponSchema = z.object({
-  shop_id: z.number(),
+  shop_id: z.string(),
   merchant_id: z.string(),
   transaction_id: z.number(),
   coupon_limit: z.number(),
