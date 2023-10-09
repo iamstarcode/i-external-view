@@ -11,7 +11,7 @@ const options: swaggerJsdoc.Options = {
         servers: [
 
             {
-                url: 'https://i-external-view-production.up.railway.app/',
+                url: 'https://i-external-view-production.up.railway.app/api/v1',
             },
             {
                 url: `http://localhost:${port}/api/v1`,
