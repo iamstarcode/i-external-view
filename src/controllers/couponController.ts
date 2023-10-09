@@ -193,12 +193,13 @@ class CouponController {
    *         description: ID of the coupon to update
    *         required: true
    *         type: integer
-   *       - name: coupon
-   *         in: body
-   *         description: Updated coupon object
-   *         required: true
-   *         schema:
-   *           $ref: '#/definitions/Coupon'
+   *     requestBody:
+   *       description: New coupon object to add
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/definitions/Coupon'
    *     responses:
    *       200:
    *         description: Coupon updated successfully
@@ -213,7 +214,7 @@ class CouponController {
     try {
       const id = parseInt(req.params.id);
       const { body } = req;
-      await updateCouponSchema.parseAsync(body);
+      await updateCouponSchema.safeParseAsync(body);
 
       // Find coupon by ID
       const existingCoupon = await prisma.coupon.findUnique({ where: { id } });
@@ -224,7 +225,7 @@ class CouponController {
         const updatedCoupon = await prisma.coupon.update({
           where: { id },
           data: {
-            ...existingCoupon,
+            //...existingCoupon,
             ...body,
           },
         });
@@ -234,6 +235,7 @@ class CouponController {
           .json({ message: 'Coupon updated successfully', updatedCoupon });
       }
     } catch (error) {
+      console.log(error);
       res.status(400).json({ error: 'Failed to update coupon' });
     }
   });
