@@ -177,6 +177,7 @@ class CouponController {
 
       res.status(201).json({ message: 'coupon added successfully!!!', coupon });
     } catch (error) {
+      console.log(error);
       res.status(404).json({ message: 'no shops found' });
     }
   });
