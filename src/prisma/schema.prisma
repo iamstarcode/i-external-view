@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ADMIN_STATUS {
+  PENDING
+  REVIEW
+  APPROVED
+  BLACKLIST
+}
+
+enum restricted {
+  NO
+  TEMPORARY
+  PERMANENT
+}
+
+enum shop_status {
+  active
+  temporary
+}
+
+enum product_status {
+  active
+  temporary
+}
+
+model Product {
+  id String @id @default(uuid())
+  shop_id String
+  name String
+  description String
+  quantity Int
+  category_id Int
+  price Float
+  discount_price Float
+  tax Float
+  admin_status ADMIN_STATUS
+  is_deleted product_status
+  rating_id Int
+  is_published Boolean @default(false)
+  currency String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  shops Shop @relation(fields: [shop_id], references: [id], onDelete: Cascade)
+  @@map(name: "product")
+}
+
+model Shop {
+  id String @id @default(uuid())
+  merchant_id String?
+  name String
+  policy_confirmation Boolean
+  restricted restricted
+  admin_status ADMIN_STATUS
+  is_deleted  Boolean @default(false)  
+  reviewed Boolean
+  rating Float
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  product Product[]
+  coupons Coupon[]
+  @@map(name: "shop")
+}
+
+model Coupon {
+  id Int @id @default(autoincrement())
+  shop_id String
+  merchant_id String
+  transaction_id Int
+  coupon_limit Int
+  percentage Float
+  coupon_code String
+  expiry_date DateTime
+  shop Shop @relation(fields: [shop_id], references: [id], onDelete: Cascade)
+  @@map(name: "coupon")
+}
