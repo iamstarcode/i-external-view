@@ -11,7 +11,7 @@ const options: swaggerJsdoc.Options = {
         servers: [
 
             {
-                url: 'https://zuri-shop-external.onrender.com/api/v1',
+                url: 'https://i-external-view-production.up.railway.app/',
             },
             {
                 url: `http://localhost:${port}/api/v1`,
