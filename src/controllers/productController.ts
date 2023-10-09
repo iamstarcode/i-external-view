@@ -26,8 +26,6 @@ class ProductController {
  *         type: string
  *       user_id:
  *         type: string
- *       shop_id:
- *         type: string
  *       name:
  *         type: string
  *       description:
@@ -52,7 +50,6 @@ class ProductController {
  *         type: string
  *     required:
  *       - user_id
- *       - shop_id
  *       - name
  *       - description
  *       - quantity
