@@ -148,8 +148,6 @@ class ProductController {
 
     await createProductSchema.parseAsync(body);
 
-    console.log(body);
-
     const product = await prisma.product.create({ data: body });
 
     if (!product) {
