@@ -170,12 +170,13 @@ class ProductController {
    *         description: ID of the product to update
    *         required: true
    *         type: string
-   *       - name: product
-   *         in: body
-   *         description: Updated product object
-   *         required: true
-   *         schema:
-   *           $ref: '#/definitions/Product'
+   *     requestBody:
+   *       description: New product object to update
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/definitions/Product'
    *     responses:
    *       200:
    *         description: Product updated successfully
