@@ -172,13 +172,10 @@ class CouponController {
     addCoupons: RequestHandler = catchAsync(async (req, res, next) => {
         const { body } = req;
 
-
-
         await createCouponSchema.parseAsync(body);
 
         try {
             const coupon = await prisma.coupon.create({ data: body });
-
 
             res.status(201).json({ message: 'coupon added successfully!!!', coupon });
         } catch (error) {
